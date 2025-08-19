@@ -108,7 +108,7 @@ TEMPERATURE = 0.0
 
 # Filtering
 MIN_LENGTH = 50  # min number of characters to identify as valid line.. less than this.. i will skip this line.. 
-PNG_MIN_BYTES = 0  # no min here; only extraction; size filtering belongs upstream if needed
+PNG_MIN_BYTES = 0  # min bytes of "image" to indentify as valid .. you can filter small/header/footer images with this..
 
 # ---------------- Models ----------------
 
