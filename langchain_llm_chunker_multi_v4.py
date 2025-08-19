@@ -6,12 +6,12 @@
 Markdown with embedded images (docling output)-> Id and save Images -> Pre‑chunk -> Semantic merge -> LLM chunking -> FAISS
 
 Stages / artifacts:
-  0) read_md                           -> in‑memory
-  1) replace_base64_images             -> <faiss_dir>/images/ + <input>_images_extracted.md
-  2) pre_chunk (headers+tables)        -> in‑memory list[str]
-  3) semantic_chunking (emb-merge)     -> in‑memory list[str], metrics
-  4) process_chunks (LLM JSON chunks)  -> <faiss_dir>/artifacts/<doc_id>_chunks.jsonl
-  5) FAISS index update                -> <faiss_dir>/faiss_index/
+  0) read_md                                      -> in‑memory
+  1) replace_base64_images                        -> <faiss_dir>/images/ + <input>_images_extracted.md
+  2) pre_chunk (id headers+prepare tables)        -> in‑memory list[str]
+  3) semantic_chunking (emb-merge)                -> in‑memory list[str], metrics
+  4) process_chunks (LLM JSON chunks)             -> <faiss_dir>/artifacts/<doc_id>_chunks.jsonl
+  5) FAISS index update                           -> <faiss_dir>/faiss_index/
 
 Basic metrics are logged and summarized at the end.
 Verbose, colorized logging controllable via -v / --log-level.
@@ -102,13 +102,12 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 CHUNK_SIZE = 2000
 CHUNK_OVERLAP = 300
 
-# LLM
-# KISS: fijo y seguro; el API recorta si es necesario.
+# LLM token limits
 MAX_COMPLETION_TOKENS = 3000
 TEMPERATURE = 0.0
 
 # Filtering
-MIN_LENGTH = 50  # min number of characters to send (FIX: was MIN_LENGHT)
+MIN_LENGTH = 50  # min number of characters to identify as valid line.. less than this.. i will skip this line.. 
 PNG_MIN_BYTES = 0  # no min here; only extraction; size filtering belongs upstream if needed
 
 # ---------------- Models ----------------
