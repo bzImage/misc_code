@@ -3,7 +3,7 @@
 # Demon - bzImage
 # 
 """
-Markdown -> (Imgs) -> Pre‑chunk -> Semantic merge -> LLM chunking -> FAISS
+Markdown with embedded images (docling output)-> Extract and saave Images -> Pre‑chunk -> Semantic merge -> LLM chunking -> FAISS
 
 Stages / artifacts:
   0) read_md                           -> in‑memory
